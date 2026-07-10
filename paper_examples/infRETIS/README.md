@@ -2,7 +2,7 @@
 
 This directory contains scripts designed for the post-processing of infRETIS paths for calcium carbonate simulations in water.
 
-## 🧪 Test System & Example Paths
+## Test System & Example Paths
 
 The scripts are pre-configured to be tested with a system defined by $\chi_{\rm ion/w} = 0.01$ and $N_{\rm ion} = 72$, the Ca–C order parameter (OP). 
 
@@ -10,7 +10,7 @@ The exemplary path data is located in the `chi_0.01_nion_72_cac_OP/` folder:
 *   **`chi_0.01_nion_72_cac_OP/load/0`**: Trajectory data for the [0-] path.
 *   **`chi_0.01_nion_72_cac_OP/load/1`**: Trajectory data for the reactive path.
 
-### ⚠️ Optimizing File Sizes (`cut_water.py`)
+### Optimizing File Sizes (`cut_water.py`)
 The raw trajectory files are relatively large (~400 MB). In order to optimize storage and significantly speed up your local test runs, water moleculed were removed from the trajectories given in `chi_0.01_nion_72_cac_OP/` using cut_water.py.
 
 ## Scripts

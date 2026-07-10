@@ -2,7 +2,7 @@
 
 A professional, modular Python package for high-throughput structural and cluster analysis in molecular simulations. `ionicluster` also provides specialized utilities for the post-processing of [infRETIS](https://github.com/infretis/infretis) (Replica Exchange Transition Interface Sampling) simulation paths.
 
-## 🚀 Features
+## Features
 
 * **Structural Analysis:** Highly optimized implementations for:
     * Radius of Gyration ($R_g$)
@@ -17,7 +17,7 @@ This package was used to obtain analysis present tn papre ``. This paper also co
 
 ---
 
-## 🛠 Usage & Examples
+## Usage & Examples
 
 For a quick start, please refer to the scripts provided in the `paper_examples/` directory. These scripts demonstrate how to initialize the `ClusterAnalyser` and `StructuralAnalyser` classes on real simulation data.
 
@@ -25,7 +25,7 @@ Moreover, this directory contains the **necessary input files and atomic configu
 
 ---
 
-## 📖 Methodology & Citation
+## Methodology & Citation
 
 This package was used to obtain the analysis presented in the following paper. Please cite this work if you use `ionicluster` in your research:
 
@@ -42,20 +42,20 @@ In development.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 Contributions are welcome! Please fork the repository and submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
-## 📄 License
+## License
 This project is licensed under the **MIT License**. See the `LICENSE` file for details.
 
 ---
 
-## 📦 Installation
+## Installation
 
 To install the package in editable (development) mode, clone the repository and install via `pip`:
 
 ```bash
-git clone [https://github.com/your-username/ionicluster.git](https://github.com/your-username/ionicluster.git)
+git clone [https://github.com/lizasidler/ionicluster.git](https://github.com/lizasidler/ionicluster.git)
 cd ionicluster
 pip install -e .
 ```
