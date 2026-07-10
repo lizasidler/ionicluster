@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=82.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["ionicluster*"]
+exclude = ["paper_examples*"]
+
+[project]
+name = "ionicluster"  # The name people will see on pip
+version = "0.1.0"
+description = "A structural and cluster analysis tool for molecular simulations, specifically tailored to analyze structural parameters of clusters as detailed in our paper."
+readme = "README.md"
+requires-python = ">=3.10.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = { text = "MIT" } # Or license = "MIT" depending on your setuptools version
+dependencies = [
+    "numpy>=2.2.6",
+    "scipy>=1.15.3",
+    "MDAnalysis>=2.8.0",
+]

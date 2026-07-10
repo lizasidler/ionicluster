@@ -1,0 +1,12 @@
+LICENCE
+README.md
+pyproject.toml
+ionicluster/__init__.py
+ionicluster/clustering.py
+ionicluster/io_utils.py
+ionicluster/structural.py
+ionicluster.egg-info/PKG-INFO
+ionicluster.egg-info/SOURCES.txt
+ionicluster.egg-info/dependency_links.txt
+ionicluster.egg-info/requires.txt
+ionicluster.egg-info/top_level.txt

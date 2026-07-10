@@ -1,0 +1,40 @@
+# infretis config
+
+[runner]
+workers = 4
+wmdrun = [ 0,0,0,0 ]
+
+[simulation]
+interfaces = [ -4.9000, -4.7825, -4.6606, -4.4609, -4.2677, -4.0984, -3.9872, -3.7000]
+steps = 5
+seed = 2
+load_dir = 'load'
+shooting_moves = ["sh", "sh", "wf", "wf", "wf", "wf", "wf", "wf" ] # number od interfaces 
+
+[simulation.tis_set]
+maxlength = 15000
+allowmaxlength = true
+zero_momentum = true
+n_jumps = 5
+interface_cap = -3.85
+
+[engine]
+class = 'lammps'
+engine = 'lammps'
+input_path = 'lammps_input'
+#lmp = 'srun --exact -n 2 --mem-per-cpu 2G lmp'
+lmp = 'mpirun -np 2 lmp'
+timestep = 0.001
+subcycles = 100
+temperature = 300
+atom_style = "full"
+
+[orderparameter]
+class = 'OrderX'
+module = "orderp.py"
+
+[output]
+data_dir = "./"
+screen = 1
+pattern = false
+delete_old = false # delete old accepted trajectories (all .lammpstrj files)

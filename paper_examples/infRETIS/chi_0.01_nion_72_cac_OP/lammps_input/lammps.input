@@ -1,0 +1,154 @@
+# 5 atom types
+variable     Ca    equal   1   #   calcium
+variable     C4    equal   2   #   carbonate
+variable     O4    equal   3   #
+variable     O2    equal   4   #   water
+variable     H2    equal   5   #
+
+# variables to be replaced by infretis
+variable 	subcycles index infretis_subcycles
+variable	timestep index infretis_timestep
+variable	nsteps index infretis_nsteps
+variable	initconf index infretis_initconf
+variable	name index infretis_name
+variable 	lammpsdata index infretis_lammpsdata
+variable	temperature index infretis_temperature
+variable	seed index infretis_seed
+
+# ---------- Initialize Simulation --------------------- 
+
+units metal
+atom_style full
+
+dimension 3
+boundary p p p
+atom_modify map array
+
+# ---------- Create Atoms --------------------- 
+
+read_data ${lammpsdata} nocoeff
+read_dump ${initconf} 0 x y z vx vy vz box yes 
+
+# ---------- Define Interatomic Potential --------------------- 
+#######################################################
+#### Atoms' masses
+#######################################################
+mass    ${Ca}       40.080
+mass    ${C4}       12.010
+mass    ${O4}       16.000
+mass    ${O2}       16.000
+mass    ${H2}        1.010
+
+#######################################################
+#### Atoms' charges
+#######################################################
+set   type   ${Ca}     charge         2.000000
+set   type   ${C4}     charge         1.123285
+set   type   ${O4}     charge        -1.041095
+set   type   ${O2}     charge        -0.820000
+set   type   ${H2}     charge         0.410000
+
+#######################################################
+#### Covalent bonds parameters
+#######################################################
+#@ 1 bond type
+bond_style        harmonic
+
+#@ C4 - O4
+bond_coeff         1   20.424650            1.3042000
+
+#@ O2 - H2
+bond_coeff         2   22.965000            1.0120000
+
+#######################################################
+#### Covalent angles parameters
+#######################################################
+#@ 2 angle types
+angle_style hybrid class2 harmonic
+
+#@ O4 - C4 - O4
+angle_coeff   1 class2                    120.00000       6.6170000   0.0000000   0.0000000
+angle_coeff   1 class2 bb                 12.818000       1.3042000   1.3042000
+angle_coeff   1 class2 ba                 1.5331900       1.5331900   1.3042000   1.3042000
+
+#@ H2 - O2 - H2
+angle_coeff   2  harmonic          	      1.6456800       113.24000
+
+#######################################################
+#### Covalent improper dihedrals parameters
+#######################################################
+#@ 3    improper types
+improper_style distance
+#@ C4-O4-O4-O4
+improper_coeff   1      13.647000                 360.00000
+
+#######################################################
+#### Pair potentials
+#######################################################
+variable rmin equal 6.
+variable rmax equal 9.
+variable rcoul equal 9.
+pair_style hybrid/overlay coul/long ${rcoul} lj/cut ${rmax} buck/mdf ${rmin} ${rmax} lj/mdf ${rmin} ${rmax}
+pair_coeff       *           *                coul/long
+kspace_style	pppm 1.0e-5
+pair_modify tail yes
+
+# Calcium carbonate interaction
+pair_coeff ${Ca} ${O4} buck/mdf 3161.6335 0.271511 0. 
+pair_coeff ${O4} ${O4} buck/mdf 63840.199 0.198913 27.89901
+pair_coeff ${Ca} ${C4} buck/mdf 120000000 0.12 0.
+
+# Water - water interactions
+pair_coeff ${O2} ${O2} lj/cut 0.00674 3.165492
+pair_modify tail yes
+
+# Calcium carbonate - water interactions
+pair_coeff ${Ca} ${O2} lj/mdf 0.00095 3.35
+pair_coeff ${O4} ${O2} buck/mdf 12534.455133 0.202 0. 
+pair_coeff ${O4} ${H2} buck/mdf 340. 0.217 0.
+
+special_bonds lj 0 0 0 coul 0 0 0
+neighbor 2.0 bin 
+neigh_modify delay 5 check yes 
+
+# ---------- Define Settings --------------------- 
+
+group C type 1
+group Ca type 2
+group O type 3
+group CO3 type 1 3
+group CaCO3 type 1 2 3
+group Ow type 4
+group H type 5
+group H2O type 4 5
+
+compute CaCO3_perat CaCO3 pe/atom
+compute CaCO3_pe CaCO3 reduce sum c_CaCO3_perat 
+compute CaCO3_kerat CaCO3 ke/atom
+compute CaCO3_ke CaCO3 reduce sum c_CaCO3_kerat
+
+compute Ca_perat Ca pe/atom
+compute Ca_pe Ca reduce sum c_Ca_perat 
+compute C_perat C pe/atom
+compute C_pe C reduce sum c_C_perat
+compute O_perat O pe/atom
+compute O_pe O reduce sum c_O_perat 
+
+# ---------- Run --------------------- 
+
+thermo ${subcycles}
+thermo_style custom step ke pe etotal temp c_CaCO3_pe c_C_pe c_Ca_pe c_O_pe c_CaCO3_ke lx density
+
+timestep ${timestep}
+
+fix 1 all nve
+#fix npt all npt temp ${temperature} ${temperature} $(100*dt) tchain 5 iso 0 0 $(1000*dt) pchain 5  
+
+dump 1 all custom ${subcycles} ${name}.lammpstrj id type x y z vx vy vz id
+dump_modify 1 pbc yes
+
+run ${nsteps} 
+
+
+
+
