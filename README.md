@@ -1,6 +1,6 @@
 # ionicluster
 
-A professional, modular Python package for high-throughput structural and cluster analysis in molecular simulations. `ionicluster` also provides specialized utilities for the post-processing of [InfRETIS](https://github.com/infretis/infretis) (Replica Exchange Transition Interface Sampling) simulation paths.
+A professional, modular Python package for high-throughput structural and cluster analysis in molecular simulations. `ionicluster` also provides specialized utilities for the post-processing of [$\infty$ RETIS](https://github.com/infretis/infretis) (Replica Exchange Transition Interface Sampling) simulation paths.
 
 ## 🚀 Features
 
