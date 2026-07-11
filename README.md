@@ -47,7 +47,7 @@ This project is licensed under the **MIT License**. See the `LICENSE` file for d
 Via `pip`:
 
 ```bash
-git clone [https://github.com/lizasidler/ionicluster.git](https://github.com/lizasidler/ionicluster.git)
+git clone https://github.com/lizasidler/ionicluster.git
 cd ionicluster
 pip install -e .
 ```
