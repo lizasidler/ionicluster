@@ -1,6 +1,10 @@
 # ionicluster
 
-A Python package for high-throughput structural and cluster analysis in molecular simulations. `ionicluster` also provides specialized utilities for the post-processing of [infRETIS](https://github.com/infretis/infretis) (Replica Exchange Transition Interface Sampling) simulation paths.
+A Python package for high-throughput structural and graph-based cluster analysis of molecular simulation data. `ionicluster` provides algorithms and reusable analysis workflows for identifying and characterizing atomic clusters in molecular dynamics trajectories. The package combines graph-based analysis, numerical computing, and trajectory processing to extract quantitative structural features from large simulation datasets. The package was developed as part of research on ionic clustering in molecular simulations and provides the computational analysis used in an associated research publication.
+
+`ionicluster` also provides specialized utilities for the post-processing of [infRETIS](https://github.com/infretis/infretis) (Replica Exchange Transition Interface Sampling) simulation paths.
+
+Key technologies: Python · NumPy · SciPy · MDAnalysis · graph algorithms · molecular dynamics
 
 ## Features
 
