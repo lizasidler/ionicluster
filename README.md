@@ -1,6 +1,14 @@
 # ionicluster
 
-A Python package for high-throughput structural and cluster analysis in molecular simulations. `ionicluster` also provides specialized utilities for the post-processing of [infRETIS](https://github.com/infretis/infretis) (Replica Exchange Transition Interface Sampling) simulation paths.
+A Python package for high-throughput structural and graph-based cluster analysis of molecular simulation data. 
+
+`ionicluster` provides algorithms and reusable analysis workflows for identifying and characterising atomic clusters in molecular dynamics trajectories. The package combines graph-based analysis, numerical computing, and trajectory processing to extract quantitative structural features from large simulation datasets. 
+
+The package was developed as part of research on ionic clustering in molecular simulations and provides the computational analysis used in an associated research publication.
+
+`ionicluster` also provides specialized utilities for the post-processing of [infRETIS](https://github.com/infretis/infretis) (Replica Exchange Transition Interface Sampling) simulation paths.
+
+Key technologies: Python · NumPy · SciPy · MDAnalysis · graph algorithms · molecular dynamics
 
 ## Features
 
@@ -20,7 +28,17 @@ This package was used to obtain analysis presented in the paper `in development`
 
 For a quick start, please refer to the scripts provided in the `paper_examples/OPES` and `paper_examples/infRETIS` directories. These scripts demonstrate how to apply the `ClusterAnalyser` and `StructuralAnalyser` classes to simulation data.
 
-The `...\OPES` and `...\infRETIS` directories contain folders with the **input files and atomic configurations** required to reproduce the results presented in our paper using the infRETIS and OPES methods, respectfully. The `OPES` scripts were tested on the MD trajectories generated with LAMMPS and PLUMMED. However, they are also applicable to any ordered set of the simulation trajectories.
+The `paper_examples/OPES` and `paper_examples/infRETIS` directories contain folders with the **input files and atomic configurations** required to reproduce the results presented in our paper using the infRETIS and OPES methods, respectively. The `OPES` scripts were tested on the MD trajectories generated with LAMMPS and PLUMMED. However, they are also applicable to any ordered set of the simulation trajectories.
+
+## Installation
+
+Via `pip`:
+
+```bash
+git clone https://github.com/lizasidler/ionicluster.git
+cd ionicluster
+pip install -e .
+```
 
 ## Citation
 
@@ -45,12 +63,3 @@ Contributions are welcome! Please fork the repository and submit a Pull Request.
 
 This project is licensed under the **MIT License**. See the `LICENSE` file for details.
 
-## Installation
-
-Via `pip`:
-
-```bash
-git clone https://github.com/lizasidler/ionicluster.git
-cd ionicluster
-pip install -e .
-```
