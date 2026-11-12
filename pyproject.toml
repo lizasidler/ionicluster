@@ -3,8 +3,8 @@ requires = ["setuptools>=82.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-include = ["src*"]
-exclude = ["paper_examples*"]
+where = ["src"]
+include = ["ionicluster*"]
 
 [project]
 name = "ionicluster"  # The name people will see on pip
