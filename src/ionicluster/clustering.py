@@ -67,8 +67,7 @@ class ClusterAnalyser:
 		self,
 		box : np.ndarray| None = None,
 		pos_A : np.ndarray| None = None,
-		pos_B : np.ndarray | None = None,
-		init: bool = False
+		pos_B : np.ndarray | None = None
 		):
 		"""
 		Parameters
@@ -81,16 +80,14 @@ class ClusterAnalyser:
 		pos_B : np.ndarray of shape (N, 3) | None, optional
 		    Coordinates of the secon atom group (e.g., central atoms, specific ions, or residues);
 			If None, calculations are done with one atom group only (pos_A against itself).
-		init : bool, optional
-		    If True, initializes an empty instance of the class
-		    without atomic positions or box dimensions. (default is False)
 		"""
 
-		if init:
-			box = np.array([1, 1, 1, 90, 90, 90]) 
-			pos_A = np.array([1, 1, 1]) 
+		# If data is provided at creation time, update immediately
 
-		self.update(box, pos_A, pos_B)
+		if box is not None and pos_A is not None:
+			self.update(box, pos_A, pos_B)
+		else:
+			print("ClusterAnalyser initialized empty. Remember to call .update() before counting.")
 
 
 	# ==========================================
@@ -126,7 +123,7 @@ class ClusterAnalyser:
 		if box.shape != (6,):
 		    raise ValueError(f"Expected array shape (6,), but got {box.shape}")
 
-		self.box = box
+		self.box = box.astype(np.float32)
 		self.pos_A = pos_A
 		self.pos_B = pos_B
 
@@ -138,9 +135,9 @@ class ClusterAnalyser:
 		        self.pos[pos_A.shape[0]:] = pos_B
 		    else:
 		        # Runs the first time (or if array sizes dynamically change)
-		        self.pos = np.vstack([pos_A, pos_B])
+		        self.pos = np.vstack([pos_A, pos_B]).astype(np.float32)
 		else:
-		    self.pos = pos_A
+		    self.pos = pos_A.astype(np.float32)
 
 		self.cl_ids, self.n_cl = None, None
 
